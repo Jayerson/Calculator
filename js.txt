@@ -1,0 +1,101 @@
+
+--String version--
+
+// button press:
+
+  if (digit) {
+      concat to current string;
+      redraw current on screen; \\ this is chunky!
+      }
+  if (operator) {
+      if (operator is +, -, *, /, sqrt, % (aka active)) {
+          store operator to active str;
+          store screen to temporary string;
+          clear display;
+          receive new number;
+      }
+      if (.) {
+          place in current before next digit;
+      }
+      if (=) {
+          if (previous -number and active -operator stored) {
+              operate(active, temporary, current);
+              draw answer on screen;
+              send answer to temporary string;
+          }
+          clear active;
+      }
+  }
+
+Notes/partials:
+
+  if (mc, mr, m-, m+) { memory functions }
+      m+ : add to memory slot
+      m- : sub from memory slot
+      mr : memory recall
+      mc : clear memory slot
+  if (ac, c, off) { clear/clear function list/off }
+      ac : reset all
+      c : clear current, reset screen to 0
+      off: clear all, wipe screen
+  if (main number length is thousands, millions) {
+      place separator in main array before next digit;
+  }
+
+// operate function: 
+
+  answer = temporary (operator) current;
+  current = answer;
+
+
+--Array version--
+
+// button press:
+
+  if (digit) {
+      store to current array;
+      shift current over;
+      redraw current on screen;
+      }
+  if (operator) {
+      if (operator is +, -, *, /, sqrt, % (aka active)) {
+          store operator to active array;
+          store screen to temporary array;
+          clear display;
+          receive new number;
+      }
+      if (.) {
+          place in current array before next digit;
+      }
+      if (=) {
+          if (previous number and active operator stored) {
+              operate(active, temporary, current);
+              draw answer on screen;
+              send answer to temporary array;
+          }
+          clear active;
+      }
+  }
+// might not finish these:
+
+  if (mc, mr, m-, m+) { memory functions }
+      m+ : add to memory slot
+      m- : sub from memory slot
+      mr : memory recall
+      mc : clear memory slot
+  if (ac, c, off) { clear/clear function list/off }
+      ac : reset all arrays
+      c : clear current, reset screen to 0
+      off: clear all, wipe screen
+  if (main array length is thousands, millions) {
+      place separator in main array before next digit;
+  }
+
+// operate function: 
+
+  for each number array {
+      remove separators if implemented;
+      parse array as short number; // includes decimal places
+  }
+  answer = temporary (operator) current;
+  current = answer;

@@ -1,0 +1,59 @@
+CSS breakdown
+
+screen {
+left: 130
+right: 356
+top: 90
+bottom: 165
+}
+
+top buttons {
+top: 192
+bottom: 225
+right: 366
+}
+
+main buttons {
+top: 230
+bottom: 452
+left: 120
+right: 366
+}
+
+keypad contains:
+- grid of buttons
+  * default button
+    > button text/image
+  * + key
+  * (c)lear
+  * (a)ll (c)lear/ on
+    > grey guards
+    > text
+  * sqrt and off
+- model decal
+
+screen contains:
+- display grid:
+  * 7-segment displays
+    > vertical
+    > horizontal
+  * separators (svg)
+    > , (thousands etc)
+    > . (decimal points)
+    > ' (alt thousands etc)
+  * 3 custom items
+- screen background
+  * border
+    > shadow
+    > corner radius
+- border/svg
+  * bevels?
+
+outer/top contains:
+- brand decal
+- solar panel
+  * rounded border
+  * text
+- bevelled edge
+  * shadow
+  * uneven

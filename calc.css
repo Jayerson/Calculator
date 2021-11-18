@@ -1,0 +1,131 @@
+.outer {
+  width: 488px;
+  height: 488px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  height: 35px;
+  width: 40px;
+}
+
+.screen {
+  height: 195px;
+}
+
+.buttonGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 40px);
+  grid-template-rows: 25px, repeat(5, 35px);
+  gap: 9px;
+  grid-template-areas: ". . . sqrt off" "mc mr m0 m1 div" "percent seven eight nine mult" "errorbar four five six minus" "clear one two three sum" "ac zero point equals sum";
+}
+
+#sqrt {
+  height: 25px;
+  grid-area: "sqrt";
+}
+
+#off {
+  height: 25px;
+  grid-area: "off";
+}
+
+#mc {
+  grid-area: "mc";
+}
+
+#mr {
+  grid-area: "mr";
+}
+
+#m0 {
+  grid-area: "m0";
+}
+
+#m1 {
+  grid-area: "m1";
+}
+
+#div {
+  grid-area: "div";
+}
+
+#percent {
+  grid-area: "percent";
+}
+
+#seven {
+  grid-area: "seven";
+}
+
+#eight {
+  grid-area: "eight";
+}
+
+#nine {
+  grid-area: "nine";
+}
+
+#mult {
+  grid-area: "mult";
+}
+
+#errorbar {
+  grid-area: "errorbar";
+}
+
+#four {
+  grid-area: "four";
+}
+
+#five {
+  grid-area: "five";
+}
+
+#six {
+  grid-area: "six";
+}
+
+#minus {
+  grid-area: "minus";
+}
+
+#clear {
+  grid-area: "clear";
+}
+
+#one {
+  grid-area: "one";
+}
+
+#two {
+  grid-area: "two";
+}
+
+#three {
+  grid-area: "three";
+}
+
+#ac {
+  grid-area: "ac";
+}
+
+#zero {
+  grid-area: "zero";
+}
+
+#point {
+  grid-area: "point";
+}
+
+#equals {
+  grid-area: "equals";
+}
+
+#sum {
+  grid-area: "sum";
+  height: 89;
+}
