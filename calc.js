@@ -62,38 +62,43 @@ const calculate = () => {
     console.log(previous);
     console.log(operator);
     console.log(temp);
-    if (!isNaN(temp) || temp == '.') { // if it's a number
+
+    if (!temp) { // if it's an operator
+
+        if (operator[0] == "=") { // if equals is the (first) operator, clear operator
+            operator = "";
+        } else {
+            if (operator.length == 1) {
+            // if only one operator stored move current to 'previous', clear
+                previous = `${current}`;
+                current = "0";
+            } else { // calculate using most recent operator, not required to be equals
+                let result = "";
+                let n1 = parseFloat(previous);
+                let n2 = parseFloat(current);
+                if (operator[0] == '+') {
+                    result = n1 + n2;
+                } else if (operator[0] == '-') {
+                    result = ((n1 - n2 > 0) ? n1 - n2 : -(n2 - n1))
+                } else if (operator[0] == '*') {
+                    result = n1 * n2;
+                } else if (operator[0] == '/') {
+                    result = n1 / n2;
+                }
+                current = `${result}`;
+                previous = `${current}`;
+                operator = "";
+            }
+        }
+    } else { // but if it's a non-zero number, remove any zeroes off the front
         current += temp;
         if (current[0] == 0 && Math.abs(current) >= 1) {
             current = current.slice(1, );
-        } // but if it's a non-zero number, remove any zeroes off the front
-
-    } else { // if it's an operator
-        if (previous > 0) {
-            temp = "";
-            // calculate
-            let result = "";
-            let n1 = parseFloat(previous);
-            let n2 = parseFloat(current);
-            if (operator == '+') {
-                result = n1 + n2;
-            } else if (operator == '-') {
-                result = n1 - n2;
-            } else if (operator == '*') {
-                result = n1 * n2;
-            } else if (operator == '/') {
-                result = n1 / n2;
-            }
-            previous = `${current}`;
-            current = `${result}`;
-            operator = "";
-        } else {
-            previous = `${current}`;
-            current = "";
-        }
-    }
-    document.querySelector("p").innerText = current; // display
-}; // and implicitly do nothing if zero, since defaults is zero
+        } 
+    } //   < <   D I S P L A Y   > >
+    document.querySelector("p").innerText = current;
+    temp = "";
+};
 
 
 // operators: store on press
@@ -101,32 +106,28 @@ const calculate = () => {
 div.addEventListener("click", (event) => {
     event.preventDefault();
     operator += "/";
-    temp = "/";
     calculate();
 });
 mult.addEventListener("click", (event) => {
     event.preventDefault();
     operator += "*";
-    temp = "*";
     calculate();
 });
 minus.addEventListener("click", (event) => {
     event.preventDefault();
     operator += "-";
-    temp = "-";
     calculate();
 });
 sum.addEventListener("click", (event) => {
     event.preventDefault();
     operator += "+";
-    temp = "+";
     calculate();
 });
 
 // nothing to operator string
 equals.addEventListener("click", (event) => {
     event.preventDefault();
-    temp = "=";
+    operator += "=";
     calculate();
 });
 
