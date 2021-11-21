@@ -70,50 +70,42 @@ const calculate = () => {
     console.log(previous);
     console.log(operator);
     console.log(temp);
-    
-    current += `${temp}`;
 
-    if (isNaN(temp) && temp !== '.') { // if it's an operator
+    if (!isNaN(temp) && temp !==".") { // if it's not an operator
+        current += `${temp}`;
 
-        if (operator[0] == "=") { // if equals is the (first) operator, clear operator
-            operator = "";
-        } else {
-            if (operator.length == 1) {
-            // if only one operator stored move current to 'previous', clear
-                previous = `${current}`;
-                current = "0";
-            } else if ( !(operator.includes("=")) ) {
-            // if there's no equals in past operators, shift to previous, then num to current
-                previous = `${current}`;
-                current = `${temp}`;
-            } else {
-                if (previous === current) {
-                // does this check stop operator concatenation of next num?
-                    current = `${temp}`;
-                }
-                // calculate using most recent operator, not required to be equals
-                let result = "";
-                let n1 = parseFloat(previous);
-                let n2 = parseFloat(current);
-                if (operator.slice(-1) === '+') {
-                    result = n1 + n2;
-                } else if (operator.slice(-1) === '-') {
-                    result = ((n1 - n2 > 0) ? n1 - n2 : -(n2 - n1))
-                } else if (operator.slice(-1) === '*') {
-                    result = n1 * n2;
-                } else if (operator.slice(-1) === '/') {
-                    result = n1 / n2;
-                }
-                current = `${result}`;
-                previous = `${current}`;
-                operator = "";
-            }
-        }
-    } else { // but if it's a non-zero number, remove any zeroes off the front
+        // if it's a non-zero number, remove any zeroes off the front
         if (current[0] == 0 && Math.abs(current) >= 1) {
             current = current.slice(1, );
-        } 
-    } //   < <   D I S P L A Y   > >
+        }
+    } else {
+        if (operator[0] == "=") { // if equals is the (first) operator, clear operator
+            operator = "";
+        } else if (operator.length == 1) {
+            // if only one operator stored, move current to 'previous', clear
+                previous = `${current}`;
+                current = "0";
+        } else {
+            // calculate using most recent valid operator
+            let result = "";
+            let n1 = parseFloat(previous);
+            let n2 = parseFloat(current);
+            if (operator.slice(-1) === '+') {
+                result = n1 + n2;
+            } else if (operator.slice(-1) === '-') {
+                result = ((n1 - n2 > 0) ? n1 - n2 : -(n2 - n1))
+            } else if (operator.slice(-1) === '*') {
+                result = n1 * n2;
+            } else if (operator.slice(-1) === '/') {
+                result = n1 / n2;
+            }
+            previous = `${n1}`;
+            current = `${result}`;
+            operator = "";
+        }
+    } // reset temp
+    temp = "";
+    //   < <   D I S P L A Y   > >
     document.querySelector("p").innerText = current; 
 }; // and implicitly do nothing if zero, since defaults is zero
 
@@ -123,31 +115,31 @@ const calculate = () => {
 div.addEventListener("click", (event) => {
     event.preventDefault();
     operator += "/";
-    temp = "/";
+    temp += "/";
     calculate();
 });
 mult.addEventListener("click", (event) => {
     event.preventDefault();
     operator += "*";
-    temp = "*";
+    temp += "*";
     calculate();
 });
 minus.addEventListener("click", (event) => {
     event.preventDefault();
     operator += "-";
-    temp = "-";
+    temp += "-";
     calculate();
 });
 sum.addEventListener("click", (event) => {
     event.preventDefault();
     operator += "+";
-    temp = "+";
+    temp += "+";
     calculate();
 });
 equals.addEventListener("click", (event) => {
     event.preventDefault();
     operator += "=";
-    temp = "=";
+    temp += "=";
     calculate();
 });
 
