@@ -10,7 +10,7 @@
   if (operator) {
       if (operator is +, -, *, /, sqrt, % (aka active)) {
           store operator to active str;
-          store screen to temporary string;
+          store screen to previous string;
           clear display;
           receive new number;
       }

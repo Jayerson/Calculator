@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "radio";
+  src: URL("./radioland.slim.ttf");
+}
 .outer {
   width: 488px;
   height: 488px;
@@ -9,27 +13,59 @@
 button {
   height: 35px;
   width: 40px;
+  opacity: 0;
 }
 
 .screen {
-  height: 195px;
+  height: 190px;
+  width: 210px;
+  display: flex;
+  justify-content: end;
+}
+.screen > p {
+  margin-top: 80px;
+  font-family: radio;
+  font-size: 60px;
 }
 
 .buttonGrid {
+  width: 245px;
+}
+.buttonGrid--topRow {
+  display: flex;
+  justify-content: end;
+}
+.buttonGrid--main {
   display: grid;
-  grid-template-columns: repeat(5, 40px);
-  grid-template-rows: 25px, repeat(5, 35px);
+  margin: 7px 4px;
+  grid-template-columns: repeat(5 1fr);
+  grid-template-rows: repeat(3 1fr);
+  column-gap: 9px;
+  row-gap: 11px;
+  grid-template-areas: "mc mr m0 m1 div" "percent seven eight nine mult" "errorbar four five six minus";
+}
+.buttonGrid__lower {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 9px;
+}
+.buttonGrid__lower--left {
+  display: grid;
+  grid-template-columns: repeat 4 40px;
+  grid-template-rows: 35px 35px;
+  grid-template-areas: "clear one two three" "ac zero point equals";
   gap: 9px;
-  grid-template-areas: ". . . sqrt off" "mc mr m0 m1 div" "percent seven eight nine mult" "errorbar four five six minus" "clear one two three sum" "ac zero point equals sum";
 }
 
 #sqrt {
   height: 25px;
+  margin: 5px 4px;
   grid-area: "sqrt";
 }
 
 #off {
   height: 25px;
+  margin: 5px;
   grid-area: "off";
 }
 
@@ -127,5 +163,5 @@ button {
 
 #sum {
   grid-area: "sum";
-  height: 89;
+  height: 79px;
 }
