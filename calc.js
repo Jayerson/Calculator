@@ -47,57 +47,73 @@ const equals = document.getElementById("equals");
 
 const clear = document.getElementById("clear");
 
-// global vars
+// global vars -- if declared inside function, may be reset on button press
 
 let current = "0";
 let previous = "";
 let operator = "";
 let temp = "";
+let equality = false;
 
 // calculate:
 
 const calculate = () => {
-    const screenRef = document.getElementById("screen");
+
     console.log(current);
     console.log(previous);
     console.log(operator);
     console.log(temp);
 
-    if (!temp) { // if it's an operator
+    if (temp) { // if it's number-ish
 
-        if (operator[0] == "=") { // if equals is the (first) operator, clear operator
-            operator = "";
-        } else {
-            if (operator.length == 1) {
-            // if only one operator stored move current to 'previous', clear
-                previous = `${current}`;
-                current = "0";
-            } else { // calculate using most recent operator, not required to be equals
-                let result = "";
-                let n1 = parseFloat(previous);
-                let n2 = parseFloat(current);
-                if (operator[0] == '+') {
-                    result = n1 + n2;
-                } else if (operator[0] == '-') {
-                    result = ((n1 - n2 > 0) ? n1 - n2 : -(n2 - n1))
-                } else if (operator[0] == '*') {
-                    result = n1 * n2;
-                } else if (operator[0] == '/') {
-                    result = n1 / n2;
-                }
-                current = `${result}`;
-                previous = `${current}`;
-                operator = "";
-            }
+        // no double dp's
+        if (temp == "." && current.includes(".")) {
+            temp = "";
         }
-    } else { // but if it's a non-zero number, remove any zeroes off the front
-        current += temp;
+
+        current += temp; // concatenate
+        
+        answer = false; // reset
+        temp = "";
+
+        // if it's > 1, remove zero off the front
         if (current[0] == 0 && Math.abs(current) >= 1) {
             current = current.slice(1, );
-        } 
-    } //   < <   D I S P L A Y   > >
-    document.querySelector("p").innerText = current;
-    temp = "";
+        }
+
+        // display
+        document.querySelector("p").innerText = current;
+
+    } else { // else it's an operator
+
+        // if there's no previous number, shift
+        if (previous == 0) {
+            previous = `${current}`;
+
+        } else { // calculate using active operator
+
+            let result = "";
+            let n1 = parseFloat(previous);
+            let n2 = parseFloat(current);
+
+            if (operator == '+') {
+                result = n1 + n2;
+            } else if (operator == '-') {                // silly javascript,
+                result = ((n1 - n2 > 0) ? n1 - n2 : "NaN"); // does not like negatives
+            } else if (operator == '*') {
+                result = n1 * n2;
+            } else if (operator == '/') {
+                result = n1 / n2;
+            }
+            // display
+            document.querySelector("p").innerText = `${result}`;
+
+            previous = `${result}`; // shift
+            if (equality) operator = ""; // reset operator from equals
+        }
+    // and clear current value for new number
+    current = "0";
+    }
 };
 
 
@@ -124,10 +140,10 @@ sum.addEventListener("click", (event) => {
     calculate();
 });
 
-// nothing to operator string
+// EQUALS: special variable output
 equals.addEventListener("click", (event) => {
     event.preventDefault();
-    operator += "=";
+    equality = true;
     calculate();
 });
 
